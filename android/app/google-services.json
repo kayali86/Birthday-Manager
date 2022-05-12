@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "614274712601",
+    "project_id": "birthday-manager-890ed",
+    "storage_bucket": "birthday-manager-890ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614274712601:android:1a5744ecdb29cc0472d688",
+        "android_client_info": {
+          "package_name": "tech.kayali.birthday_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614274712601-6kcjdar2hkb2qjtj04seu05f6jmbstgu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Z7uk2YKTp1NtlSiOw3Ub9rI_WIVJBPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614274712601-6kcjdar2hkb2qjtj04seu05f6jmbstgu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "614274712601-iurkv4v3ut8acssondvm99rsmib72h3v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tech.kayali.birthdayManager"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
