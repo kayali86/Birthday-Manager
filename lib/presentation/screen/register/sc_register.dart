@@ -16,7 +16,10 @@ class RegisterScreen extends StatelessWidget {
     var userRepository = RepositoryProvider.of<UserRepository>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Register'), backgroundColor: COLOR_CONST.PRIMARY_COLOR,),
+      appBar: AppBar(
+        title: Text('Register'),
+        backgroundColor: COLOR_CONST.PRIMARY_COLOR,
+      ),
       body: Center(
         child: BlocProvider<RegisterBloc>(
           create: (context) => RegisterBloc(userRepository: userRepository),
@@ -40,12 +43,14 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _nameController = TextEditingController();
 
   late RegisterBloc _registerBloc;
+  DateTime _selectedDate = DateTime.now();
 
   bool get isPopulated =>
       _emailController.text.isNotEmpty &&
       _passwordController.text.isNotEmpty &&
       _confirmPasswordController.text.isNotEmpty &&
-      _nameController.text.isNotEmpty;
+      _nameController.text.isNotEmpty &&
+      _selectedDate != DateTime.now();
 
   bool isRegisterButtonEnabled(RegisterState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
@@ -167,6 +172,24 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   WidgetSpacer(height: 20),
                   SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: FlatButton(
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                      color: COLOR_CONST.DARK_PRIMARY_COLOR,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7.0),
+                      ),
+                      child: Text(
+                        'Select birthday'.toUpperCase(),
+                        style: FONT_CONST.SEMIBOLD_WHITE_18,
+                      ),
+                    ),
+                  ),
+                  WidgetSpacer(height: 20),
+                  SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: FlatButton(
@@ -175,7 +198,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       },
                       color: COLOR_CONST.ACCENT_COLOR,
                       shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(7.0),
+                        borderRadius: BorderRadius.circular(7.0),
                       ),
                       child: Text(
                         'Submit'.toUpperCase(),
@@ -214,14 +237,27 @@ class _RegisterFormState extends State<RegisterForm> {
     _registerBloc.add(NameChanged(name: _nameController.text));
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1920),
+        lastDate: DateTime.now());
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
   void _onFormSubmitted() {
     _registerBloc.add(
       Submitted(
-        email: _emailController.text,
-        password: _passwordController.text,
-        confirmPassword: _confirmPasswordController.text,
-        displayName: _nameController.text,
-      ),
+          email: _emailController.text,
+          password: _passwordController.text,
+          confirmPassword: _confirmPasswordController.text,
+          displayName: _nameController.text,
+          birthday: _selectedDate),
     );
   }
 

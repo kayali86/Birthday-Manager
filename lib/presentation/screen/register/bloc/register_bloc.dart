@@ -45,7 +45,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       yield* _mapNameChangedToState(event.name);
     } else if (event is Submitted) {
       yield* _mapFormSubmittedToState(event.email, event.password,
-          event.confirmPassword, event.displayName);
+          event.confirmPassword, event.displayName, event.birthday);
     }
   }
 
@@ -89,10 +89,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   Stream<RegisterState> _mapFormSubmittedToState(String email, String password,
-      String confirmPassword, String displayName) async* {
+      String confirmPassword, String displayName, DateTime birthday) async* {
     //need refactor
     var isValidEmail = Validators.isValidEmail(email);
     var isValidName = displayName.isNotEmpty;
+    var isValidBirthday = birthday.isBefore(DateTime.now()) &&
+    birthday.isAfter(DateTime(1920)) &&
+        !(birthday.year == DateTime.now().year &&
+        birthday.month == DateTime.now().month &&
+        birthday.day == DateTime.now().day);
 
     var isValidPassword = Validators.isValidPassword(password);
     var isValidConfirmPassword = Validators.isValidPassword(confirmPassword);
@@ -104,10 +109,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     var newState = state.update(
         isEmailValid: isValidEmail,
         isNameValid: isValidName,
+        isValidBirthday: isValidBirthday,
         isPasswordValid: isValidPassword,
         isConfirmPasswordValid: isValidConfirmPassword && isMatched);
 
     yield newState;
+
+    yield RegisterState.failure();
 
     if (newState.isFormValid) {
       yield RegisterState.loading();

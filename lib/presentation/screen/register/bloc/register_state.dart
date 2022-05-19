@@ -6,18 +6,20 @@ class RegisterState {
   final bool isPasswordValid;
   final bool isConfirmPasswordValid;
   final bool isNameValid;
+  final bool isBirthdayValid;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
   bool get isFormValid =>
-      isEmailValid && isPasswordValid && isConfirmPasswordValid && isNameValid;
+      isEmailValid && isPasswordValid && isConfirmPasswordValid && isNameValid && isBirthdayValid;
 
   RegisterState({
     required this.isEmailValid,
     required this.isPasswordValid,
     required this.isConfirmPasswordValid,
     required this.isNameValid,
+    required this.isBirthdayValid,
     required this.isSubmitting,
     required this.isSuccess,
     required this.isFailure,
@@ -29,6 +31,7 @@ class RegisterState {
       isPasswordValid: true,
       isConfirmPasswordValid: true,
       isNameValid: true,
+      isBirthdayValid: true,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -41,6 +44,7 @@ class RegisterState {
       isPasswordValid: true,
       isConfirmPasswordValid: true,
       isNameValid: true,
+      isBirthdayValid: true,
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
@@ -53,6 +57,7 @@ class RegisterState {
       isPasswordValid: true,
       isConfirmPasswordValid: true,
       isNameValid: true,
+      isBirthdayValid: true,
       isSuccess: false,
       isSubmitting: false,
       isFailure: true,
@@ -65,6 +70,7 @@ class RegisterState {
       isPasswordValid: true,
       isConfirmPasswordValid: true,
       isNameValid: true,
+      isBirthdayValid: true,
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
@@ -75,6 +81,7 @@ class RegisterState {
     bool? isEmailValid,
     bool? isPasswordValid,
     bool? isNameValid,
+    bool? isValidBirthday,
     bool? isConfirmPasswordValid,
   }) {
     return copyWith(
@@ -82,6 +89,7 @@ class RegisterState {
       isPasswordValid: isPasswordValid,
       isConfirmPasswordValid: isConfirmPasswordValid,
       isNameValid: isNameValid,
+      isBirthdayValid: isValidBirthday,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -93,6 +101,7 @@ class RegisterState {
     bool? isPasswordValid,
     bool? isConfirmPasswordValid,
     bool? isNameValid,
+    bool? isBirthdayValid,
     bool? isSubmitting,
     bool? isSuccess,
     bool? isFailure,
@@ -103,6 +112,7 @@ class RegisterState {
       isConfirmPasswordValid:
           isConfirmPasswordValid ?? this.isConfirmPasswordValid,
       isNameValid: isNameValid ?? this.isNameValid,
+      isBirthdayValid: isBirthdayValid ?? this.isBirthdayValid,
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
@@ -111,6 +121,6 @@ class RegisterState {
 
   @override
   String toString() {
-    return 'RegisterState{isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isConfirmPasswordValid: $isConfirmPasswordValid, isNameValid: $isNameValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isFailure: $isFailure}';
+    return 'RegisterState{isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isConfirmPasswordValid: $isConfirmPasswordValid, isNameValid: $isNameValid, isBirthdayValid: $isBirthdayValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isFailure: $isFailure}';
   }
 }
