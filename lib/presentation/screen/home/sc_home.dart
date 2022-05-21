@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import '../../../app/auth_bloc/authentication_bloc.dart';
 import '../../../app/auth_bloc/authentication_event.dart';
 import '../../../model/repo/user_repository.dart';
@@ -16,7 +17,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: BlocProvider<HomeBloc>(
-          create: (context) => HomeBloc(userRepository: userRepository)..add(LoadData()),
+          create: (context) =>
+              HomeBloc(userRepository: userRepository)..add(LoadData()),
           child: HomeWidget(),
         ),
       ),
@@ -30,7 +32,6 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-
   late HomeBloc _homeBloc;
 
   @override
@@ -41,10 +42,8 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
-
         if (state.isLoggingOut) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
@@ -88,9 +87,14 @@ class _HomeWidgetState extends State<HomeWidget> {
             body: ListView.builder(
               itemCount: state.users.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('${state.users[index].displayName}'),
-                );
+                return Card(
+                    child: ListTile(
+                        leading: Icon(Icons.person),
+                        iconColor: COLOR_CONST.PRIMARY_COLOR,
+                        title: Text('${state.users[index].displayName}'),
+                        textColor: COLOR_CONST.DARK_PRIMARY_COLOR,
+                        subtitle: Text(
+                            '${_getFormattedBirthday(state.users[index].birthday)}')));
               },
             ),
             floatingActionButton: FloatingActionButton(
@@ -104,6 +108,11 @@ class _HomeWidgetState extends State<HomeWidget> {
         },
       ),
     );
+  }
+
+  String _getFormattedBirthday(DateTime birthday) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(birthday);
   }
 
   void _onLogOutPressed() {

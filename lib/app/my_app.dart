@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../app_config.dart';
-import '../model/repo/home_repository.dart';
 import '../model/repo/user_repository.dart';
 import '../presentation/router.dart';
 import '../presentation/screen/home/sc_home.dart';
@@ -65,14 +64,11 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final UserRepository userRepository = UserRepository();
-          final HomeRepository homeRepository = HomeRepository();
 
           return MultiRepositoryProvider(
             providers: [
               RepositoryProvider<UserRepository>(
-                  create: (context) => userRepository),
-              RepositoryProvider<HomeRepository>(
-                  create: (context) => homeRepository)
+                  create: (context) => userRepository)
             ],
             child: MultiBlocProvider(
               providers: [

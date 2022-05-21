@@ -53,7 +53,7 @@ class UserRepository {
   Future<List<BmUser>> getAlUsers() async {
     QuerySnapshot querySnapshot = await _db.collection('users').get();
     return querySnapshot.docs
-        .map((doc) => BmUser(doc.id, doc["DisplayName"], doc["Birthday"]))
+        .map((doc) => BmUser(doc.id, doc["DisplayName"], (doc["Birthday"] as Timestamp).toDate()))
         .toList();
   }
 }
