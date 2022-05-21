@@ -9,7 +9,7 @@ class HomeState {
   final String message;
   final List<BmUser> users;
 
-  HomeState({
+  const HomeState({
     required this.isLoggingOut,
     required this.isLoggedOut,
     required this.isFailure,

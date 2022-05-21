@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/auth_bloc/authentication_bloc.dart';
 import '../../../app/auth_bloc/authentication_event.dart';
-import '../../../utils/my_const/COLOR_CONST.dart';
-import '../../../utils/my_const/FONT_CONST.dart';
+import '../../../utils/my_const/color_const.dart';
+import '../../../utils/my_const/font_const.dart';
 import '../../common_widgets/widget_spacer.dart';
 import 'bloc/bloc.dart';
 
 class WidgetLoginForm extends StatefulWidget {
+  const WidgetLoginForm({Key? key}) : super(key: key);
+
   @override
   _WidgetLoginFormState createState() => _WidgetLoginFormState();
 }
@@ -40,7 +42,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
         }
 
         if (state.isFailure) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
@@ -48,7 +50,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(state.message),
-                    Icon(Icons.error),
+                    const Icon(Icons.error),
                   ],
                 ),
                 backgroundColor: Colors.red,
@@ -57,7 +59,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
         }
 
         if (state.isSubmitting) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
@@ -65,7 +67,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(state.message),
-                    CircularProgressIndicator(),
+                    const CircularProgressIndicator(),
                   ],
                 ),
               ),
@@ -74,12 +76,12 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
       },
       child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(10),
-            color: COLOR_CONST.WHITE,
+            color: ColorConst.white,
           ),
           child: Form(
             child: Column(
@@ -87,7 +89,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text('Login to your account',
-                      style: FONT_CONST.MEDIUM_DEFAULT_16),
+                      style: FontConst.mediumPrimary_16),
                 ),
                 WidgetSpacer(height: 20),
                 _buildTextFieldUsername(),
@@ -98,7 +100,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                   alignment: Alignment.centerRight,
                   child: Text(
                     'Forgot password ?',
-                    style: FONT_CONST.REGULAR_GRAY4_12,
+                    style: FontConst.regularGray3_12,
                   ),
                 ),
                 WidgetSpacer(height: 20),
@@ -125,14 +127,14 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
           }
         },
         color: isRegisterButtonEnabled()
-            ? COLOR_CONST.ACCENT_COLOR
-            : COLOR_CONST.LIGHT_PRIMARY_COLOR,
+            ? ColorConst.accentColor
+            : ColorConst.lightPrimaryColor,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(7.0),
+          borderRadius: BorderRadius.circular(7.0),
         ),
         child: Text(
           'Login'.toUpperCase(),
-          style: FONT_CONST.SEMIBOLD_WHITE_18,
+          style: FontConst.semiBoldWhite_18,
         ),
       ),
     );
@@ -147,11 +149,11 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
   _buildTextFieldPassword() {
     return Container(
       height: 50,
-      padding: EdgeInsets.symmetric(horizontal: 17),
+      padding: const EdgeInsets.symmetric(horizontal: 17),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
-        color: COLOR_CONST.GRAY3,
+        color: ColorConst.gray2,
       ),
       child: Center(
         child: TextFormField(
@@ -165,12 +167,12 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                 ? 'Invalid Password'
                 : null;
           },
-          style: FONT_CONST.REGULAR_GRAY1_12,
+          style: FontConst.regularGray1_12,
           maxLines: 1,
           keyboardType: TextInputType.text,
           obscureText: true,
           textAlign: TextAlign.left,
-          decoration: InputDecoration.collapsed(
+          decoration: const InputDecoration.collapsed(
             hintText: 'Password',
           ),
         ),
@@ -181,11 +183,11 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
   _buildTextFieldUsername() {
     return Container(
       height: 50,
-      padding: EdgeInsets.symmetric(horizontal: 17),
+      padding: const EdgeInsets.symmetric(horizontal: 17),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
-        color: COLOR_CONST.GRAY3,
+        color: ColorConst.gray2,
       ),
       child: Center(
         child: TextFormField(
@@ -197,11 +199,11 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
           validator: (_) {
             return !_loginBloc.state.isEmailValid ? 'Invalid Email' : null;
           },
-          style: FONT_CONST.REGULAR_GRAY1_12,
+          style: FontConst.regularGray1_12,
           maxLines: 1,
           keyboardType: TextInputType.text,
           textAlign: TextAlign.left,
-          decoration: InputDecoration.collapsed(
+          decoration: const InputDecoration.collapsed(
             hintText: 'Email',
           ),
         ),

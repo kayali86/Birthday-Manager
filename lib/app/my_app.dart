@@ -9,7 +9,7 @@ import '../presentation/router.dart';
 import '../presentation/screen/home/sc_home.dart';
 import '../presentation/screen/login/sc_login.dart';
 import '../presentation/screen/splash/sc_splash.dart';
-import '../utils/my_const/COLOR_CONST.dart';
+import '../utils/my_const/color_const.dart';
 import 'auth_bloc/bloc.dart';
 
 class MyApp extends StatelessWidget {
@@ -23,21 +23,21 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: config.debugTag,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: COLOR_CONST.PRIMARY_COLOR,
-        hoverColor: COLOR_CONST.GREEN,
+        primaryColor: ColorConst.primaryColor,
+        hoverColor: ColorConst.green,
         fontFamily: 'Poppins',
         colorScheme: ColorScheme.fromSwatch()
-            .copyWith(secondary: COLOR_CONST.PRIMARY_COLOR),
+            .copyWith(secondary: ColorConst.primaryColor),
       ),
       onGenerateRoute: AppRouter.generateRoute,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is Uninitialized) {
-            return SplashScreen();
+            return const SplashScreen();
           } else if (state is Unauthenticated) {
-            return LoginScreen();
+            return const LoginScreen();
           } else if (state is Authenticated) {
-            return HomeScreen();
+            return const HomeScreen();
           }
 
           return Center(child: Text('Unhandled State $state'));
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
   static void initSystemDefault() {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: COLOR_CONST.STATUS_BAR,
+        statusBarColor: ColorConst.statusBar,
       ),
     );
   }

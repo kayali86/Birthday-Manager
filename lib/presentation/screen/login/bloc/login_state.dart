@@ -11,7 +11,7 @@ class LoginState {
 
   bool get isFormValid => isEmailValid && isPasswordValid;
 
-  LoginState(
+  const LoginState(
       {required this.isEmailValid,
       required this.isPasswordValid,
       required this.isSubmitting,
@@ -20,7 +20,7 @@ class LoginState {
       required this.message});
 
   factory LoginState.empty() {
-    return LoginState(
+    return const LoginState(
         isEmailValid: true,
         isPasswordValid: true,
         isSubmitting: false,
@@ -50,7 +50,7 @@ class LoginState {
   }
 
   factory LoginState.success() {
-    return LoginState(
+    return const LoginState(
         isEmailValid: true,
         isPasswordValid: true,
         isSubmitting: false,
@@ -79,13 +79,12 @@ class LoginState {
     String? message,
   }) {
     return LoginState(
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSuccess: isSuccess ?? this.isSuccess,
-      isFailure: isFailure ?? this.isFailure,
-      message: message ?? this.message
-    );
+        isEmailValid: isEmailValid ?? this.isEmailValid,
+        isPasswordValid: isPasswordValid ?? this.isPasswordValid,
+        isSubmitting: isSubmitting ?? this.isSubmitting,
+        isSuccess: isSuccess ?? this.isSuccess,
+        isFailure: isFailure ?? this.isFailure,
+        message: message ?? this.message);
   }
 
   @override

@@ -1,5 +1,3 @@
-import 'package:rxdart/rxdart.dart';
-
 import '../../../../model/repo/user_repository.dart';
 import '../../../../utils/validators.dart';
 import 'bloc.dart';
@@ -9,28 +7,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final UserRepository userRepository;
 
   RegisterBloc({required this.userRepository}) : super(RegisterState.empty());
-
-  @override
-  Stream<Transition<RegisterEvent, RegisterState>> transformEvents(
-      Stream<RegisterEvent> events,
-      TransitionFunction<RegisterEvent, RegisterState> transitionFn) {
-    final nonDebounceStream = events.where((event) {
-      return (event is! EmailChanged &&
-          event is! PasswordChanged &&
-          event is! ConfirmPasswordChanged &&
-          event is! NameChanged);
-    });
-
-    final debounceStream = events.where((event) {
-      return (event is EmailChanged ||
-          event is PasswordChanged ||
-          event is ConfirmPasswordChanged ||
-          event is NameChanged);
-    }).debounceTime(Duration(milliseconds: 300));
-
-    return super.transformEvents(
-        nonDebounceStream.mergeWith([debounceStream]), transitionFn);
-  }
 
   @override
   Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
@@ -95,7 +71,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     var isValidName = displayName.isNotEmpty;
     var isValidBirthday = Validators.isValidBirthday(birthday);
 
-    if(!isValidBirthday){
+    if (!isValidBirthday) {
       yield RegisterState.failure("Please select your birthday");
       return;
     }
@@ -123,7 +99,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       try {
         await userRepository.signUp(
-            email: email, password: password, displayName: displayName, birthday: birthday);
+            email: email,
+            password: password,
+            displayName: displayName,
+            birthday: birthday);
         yield RegisterState.success();
       } catch (_) {
         yield RegisterState.failure("Registering Failure");

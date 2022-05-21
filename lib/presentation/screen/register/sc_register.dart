@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../app/auth_bloc/authentication_bloc.dart';
 import '../../../app/auth_bloc/authentication_event.dart';
 import '../../../model/repo/user_repository.dart';
-import '../../../utils/my_const/COLOR_CONST.dart';
-import '../../../utils/my_const/FONT_CONST.dart';
+import '../../../utils/my_const/color_const.dart';
+import '../../../utils/my_const/font_const.dart';
 import '../../common_widgets/widget_spacer.dart';
 import 'bloc/bloc.dart';
 
 class RegisterScreen extends StatelessWidget {
-  RegisterScreen();
+  const RegisterScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,13 @@ class RegisterScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
-        backgroundColor: COLOR_CONST.PRIMARY_COLOR,
+        title: const Text('Register'),
+        backgroundColor: ColorConst.primaryColor,
       ),
       body: Center(
         child: BlocProvider<RegisterBloc>(
           create: (context) => RegisterBloc(userRepository: userRepository),
-          child: RegisterForm(),
+          child: const RegisterForm(),
         ),
       ),
     );
@@ -31,6 +31,8 @@ class RegisterScreen extends StatelessWidget {
 }
 
 class RegisterForm extends StatefulWidget {
+  const RegisterForm({Key? key}) : super(key: key);
+
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
@@ -72,7 +74,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) {
         if (state.isSubmitting) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
@@ -80,7 +82,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(state.message),
-                    CircularProgressIndicator(),
+                    const CircularProgressIndicator(),
                   ],
                 ),
               ),
@@ -93,7 +95,7 @@ class _RegisterFormState extends State<RegisterForm> {
         }
 
         if (state.isFailure) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
@@ -101,7 +103,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(state.message),
-                    Icon(Icons.error),
+                    const Icon(Icons.error),
                   ],
                 ),
                 backgroundColor: Colors.red,
@@ -112,13 +114,13 @@ class _RegisterFormState extends State<RegisterForm> {
       child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
           return Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Form(
               child: ListView(
                 children: <Widget>[
                   TextFormField(
                     controller: _emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       icon: Icon(Icons.email),
                       labelText: 'Email',
                     ),
@@ -131,7 +133,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   TextFormField(
                     controller: _nameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       icon: Icon(Icons.account_box),
                       labelText: 'Display Name',
                     ),
@@ -144,7 +146,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   TextFormField(
                     controller: _passwordController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       icon: Icon(Icons.lock),
                       labelText: 'Password',
                     ),
@@ -157,7 +159,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   TextFormField(
                     controller: _confirmPasswordController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       icon: Icon(Icons.lock_outline),
                       labelText: 'Confirm Password',
                     ),
@@ -178,13 +180,13 @@ class _RegisterFormState extends State<RegisterForm> {
                       onPressed: () {
                         _selectDate(context);
                       },
-                      color: COLOR_CONST.DARK_PRIMARY_COLOR,
+                      color: ColorConst.darkPrimaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7.0),
                       ),
                       child: Text(
                         'Select birthday'.toUpperCase(),
-                        style: FONT_CONST.SEMIBOLD_WHITE_18,
+                        style: FontConst.semiBoldWhite_18,
                       ),
                     ),
                   ),
@@ -196,13 +198,13 @@ class _RegisterFormState extends State<RegisterForm> {
                       onPressed: () {
                         _onFormSubmitted();
                       },
-                      color: COLOR_CONST.ACCENT_COLOR,
+                      color: ColorConst.accentColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7.0),
                       ),
                       child: Text(
                         'Submit'.toUpperCase(),
-                        style: FONT_CONST.SEMIBOLD_WHITE_18,
+                        style: FontConst.semiBoldWhite_18,
                       ),
                     ),
                   )

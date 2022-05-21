@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class RegisterEvent extends Equatable {
   const RegisterEvent();
@@ -26,7 +25,8 @@ class PasswordChanged extends RegisterEvent {
   final String password;
   final String confirmPassword;
 
-  PasswordChanged({required this.password, required this.confirmPassword});
+  const PasswordChanged(
+      {required this.password, required this.confirmPassword});
 
   @override
   List<Object> get props => [];
@@ -41,7 +41,7 @@ class ConfirmPasswordChanged extends RegisterEvent {
   final String password;
   final String confirmPassword;
 
-  ConfirmPasswordChanged(
+  const ConfirmPasswordChanged(
       {required this.password, required this.confirmPassword});
 
   @override
@@ -56,7 +56,7 @@ class ConfirmPasswordChanged extends RegisterEvent {
 class NameChanged extends RegisterEvent {
   final String name;
 
-  NameChanged({required this.name});
+  const NameChanged({required this.name});
 
   @override
   List<Object> get props => [];
@@ -83,7 +83,8 @@ class Submitted extends RegisterEvent {
   });
 
   @override
-  List<Object> get props => [email, password, confirmPassword, displayName, birthday];
+  List<Object> get props =>
+      [email, password, confirmPassword, displayName, birthday];
 
   @override
   String toString() {

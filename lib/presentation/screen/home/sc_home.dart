@@ -4,11 +4,11 @@ import 'package:intl/intl.dart';
 import '../../../app/auth_bloc/authentication_bloc.dart';
 import '../../../app/auth_bloc/authentication_event.dart';
 import '../../../model/repo/user_repository.dart';
-import '../../../utils/my_const/COLOR_CONST.dart';
+import '../../../utils/my_const/color_const.dart';
 import 'bloc/bloc.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen();
+  const HomeScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         child: BlocProvider<HomeBloc>(
           create: (context) =>
               HomeBloc(userRepository: userRepository)..add(LoadData()),
-          child: HomeWidget(),
+          child: const HomeWidget(),
         ),
       ),
     );
@@ -27,6 +27,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 class HomeWidget extends StatefulWidget {
+  const HomeWidget({Key? key}) : super(key: key);
+
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
 }
@@ -45,7 +47,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state.isLoggingOut) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
@@ -53,7 +55,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(state.message),
-                    CircularProgressIndicator(),
+                    const CircularProgressIndicator(),
                   ],
                 ),
               ),
@@ -65,7 +67,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         }
 
         if (state.isFailure) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
@@ -73,7 +75,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(state.message),
-                    Icon(Icons.error),
+                    const Icon(Icons.error),
                   ],
                 ),
                 backgroundColor: Colors.red,
@@ -89,19 +91,19 @@ class _HomeWidgetState extends State<HomeWidget> {
               itemBuilder: (context, index) {
                 return Card(
                     child: ListTile(
-                        leading: Icon(Icons.person),
-                        iconColor: COLOR_CONST.PRIMARY_COLOR,
-                        title: Text('${state.users[index].displayName}'),
-                        textColor: COLOR_CONST.DARK_PRIMARY_COLOR,
+                        leading: const Icon(Icons.person),
+                        iconColor: ColorConst.primaryColor,
+                        title: Text(state.users[index].displayName),
+                        textColor: ColorConst.darkPrimaryColor,
                         subtitle: Text(
-                            '${_getFormattedBirthday(state.users[index].birthday)}')));
+                            _getFormattedBirthday(state.users[index].birthday))));
               },
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 _onLogOutPressed();
               },
-              backgroundColor: COLOR_CONST.ACCENT_COLOR,
+              backgroundColor: ColorConst.accentColor,
               child: const Icon(Icons.logout),
             ),
           );

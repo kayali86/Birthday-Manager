@@ -19,7 +19,7 @@ class RegisterState {
       isNameValid &&
       isBirthdayValid;
 
-  RegisterState(
+  const RegisterState(
       {required this.isEmailValid,
       required this.isPasswordValid,
       required this.isConfirmPasswordValid,
@@ -31,7 +31,7 @@ class RegisterState {
       required this.message});
 
   factory RegisterState.empty() {
-    return RegisterState(
+    return const RegisterState(
         isEmailValid: true,
         isPasswordValid: true,
         isConfirmPasswordValid: true,
@@ -71,7 +71,7 @@ class RegisterState {
   }
 
   factory RegisterState.success() {
-    return RegisterState(
+    return const RegisterState(
         isEmailValid: true,
         isPasswordValid: true,
         isConfirmPasswordValid: true,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppConfig extends InheritedWidget {
-  AppConfig({
+  const AppConfig({
     required this.appName,
     required this.debugTag,
     required this.flavorName,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/my_const/COLOR_CONST.dart';
+import '../../utils/my_const/color_const.dart';
 
 class MySnackBar {
   static void showLoading(BuildContext context) {
@@ -50,7 +50,7 @@ class MySnackBar {
               Text(msg),
             ],
           ),
-          backgroundColor: COLOR_CONST.PRIMARY_COLOR,
+          backgroundColor: ColorConst.primaryColor,
         ),
       );
   }
