@@ -79,7 +79,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Registering ... '),
+                    Text(state.message),
                     CircularProgressIndicator(),
                   ],
                 ),
@@ -100,7 +100,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Registering Failure'),
+                    Text(state.message),
                     Icon(Icons.error),
                   ],
                 ),

@@ -45,7 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginSubmitEmailPasswordEventToState(
       String email, String password) async* {
     try {
-      yield LoginState.loading();
+      yield LoginState.loading("Processing...");
 
       await userRepository.signInWithCredentials(email, password);
       bool isSignedIn = await userRepository.isSignedIn();
@@ -53,10 +53,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (isSignedIn) {
         yield LoginState.success();
       } else {
-        yield LoginState.failure();
+        yield LoginState.failure("Login Failure");
       }
     } catch (e) {
-      yield LoginState.failure();
+      yield LoginState.failure("Login Failure");
     }
   }
 

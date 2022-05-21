@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -8,55 +7,56 @@ class LoginState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final String message;
 
   bool get isFormValid => isEmailValid && isPasswordValid;
 
-  LoginState({
-    required this.isEmailValid,
-    required this.isPasswordValid,
-    required this.isSubmitting,
-    required this.isSuccess,
-    required this.isFailure,
-  });
+  LoginState(
+      {required this.isEmailValid,
+      required this.isPasswordValid,
+      required this.isSubmitting,
+      required this.isSuccess,
+      required this.isFailure,
+      required this.message});
 
   factory LoginState.empty() {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: false,
+        isSuccess: false,
+        isFailure: false,
+        message: "");
   }
 
-  factory LoginState.loading() {
+  factory LoginState.loading(String message) {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: true,
-      isSuccess: false,
-      isFailure: false,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: true,
+        isSuccess: false,
+        isFailure: false,
+        message: message);
   }
 
-  factory LoginState.failure() {
+  factory LoginState.failure(String message) {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSuccess: false,
-      isSubmitting: false,
-      isFailure: true,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSuccess: false,
+        isSubmitting: false,
+        isFailure: true,
+        message: message);
   }
 
   factory LoginState.success() {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: true,
-      isFailure: false,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: false,
+        isSuccess: true,
+        isFailure: false,
+        message: "");
   }
 
   LoginState update({bool? isEmailValid, bool? isPasswordValid}) {
@@ -66,6 +66,7 @@ class LoginState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      message: "",
     );
   }
 
@@ -75,6 +76,7 @@ class LoginState {
     bool? isSubmitting,
     bool? isSuccess,
     bool? isFailure,
+    String? message,
   }) {
     return LoginState(
       isEmailValid: isEmailValid ?? this.isEmailValid,
@@ -82,11 +84,12 @@ class LoginState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      message: message ?? this.message
     );
   }
 
   @override
   String toString() {
-    return 'LoginState{isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isFailure: $isFailure}';
+    return 'LoginState{isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isFailure: $isFailure, message: $message}';
   }
 }

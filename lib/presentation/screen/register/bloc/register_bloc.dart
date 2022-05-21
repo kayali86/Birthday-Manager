@@ -115,17 +115,17 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
     yield newState;
 
-    yield RegisterState.failure();
+    yield RegisterState.failure("Registering Failure");
 
     if (newState.isFormValid) {
-      yield RegisterState.loading();
+      yield RegisterState.loading("Registering...");
 
       try {
         await userRepository.signUp(
             email: email, password: password, displayName: displayName, birthday: birthday);
         yield RegisterState.success();
       } catch (_) {
-        yield RegisterState.failure();
+        yield RegisterState.failure("Registering Failure");
       }
     }
   }

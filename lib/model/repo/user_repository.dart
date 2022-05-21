@@ -1,3 +1,4 @@
+import 'package:birthday_manager/model/entity/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,8 +25,11 @@ class UserRepository {
         email: email, password: password);
     var currentUser = _firebaseAuth.currentUser;
 
-    if(currentUser != null){
-      final user = <String, dynamic>{"Birthday": birthday, "DisplayName": displayName};
+    if (currentUser != null) {
+      final user = <String, dynamic>{
+        "Birthday": birthday,
+        "DisplayName": displayName
+      };
       _db.collection("users").doc(currentUser.uid).set(user);
       await currentUser.updateDisplayName(displayName);
     }
@@ -44,5 +48,12 @@ class UserRepository {
 
   Future<String> getUser() async {
     return _firebaseAuth.currentUser!.displayName!;
+  }
+
+  Future<List<BmUser>> getAlUsers() async {
+    QuerySnapshot querySnapshot = await _db.collection('users').get();
+    return querySnapshot.docs
+        .map((doc) => BmUser(doc.id, doc["DisplayName"], doc["Birthday"]))
+        .toList();
   }
 }

@@ -47,7 +47,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Login Failure'),
+                    Text(state.message),
                     Icon(Icons.error),
                   ],
                 ),
@@ -64,7 +64,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Processing ...'),
+                    Text(state.message),
                     CircularProgressIndicator(),
                   ],
                 ),

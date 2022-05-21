@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: BlocProvider<HomeBloc>(
-          create: (context) => HomeBloc(userRepository: userRepository),
+          create: (context) => HomeBloc(userRepository: userRepository)..add(LoadData()),
           child: HomeWidget(),
         ),
       ),
@@ -36,14 +36,15 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     super.initState();
-
     _homeBloc = BlocProvider.of<HomeBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
+
         if (state.isLoggingOut) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
@@ -52,7 +53,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Logging out ... '),
+                    Text(state.message),
                     CircularProgressIndicator(),
                   ],
                 ),
@@ -72,7 +73,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Logging out Failure'),
+                    Text(state.message),
                     Icon(Icons.error),
                   ],
                 ),
@@ -85,12 +86,10 @@ class _HomeWidgetState extends State<HomeWidget> {
         builder: (context, state) {
           return Scaffold(
             body: ListView.builder(
-              //itemCount: products.length,
-              itemCount: 2,
+              itemCount: state.users.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  //title: Text('${products[index]}'),
-                  title: Text('Item')
+                  title: Text('${state.users[index].displayName}'),
                 );
               },
             ),
