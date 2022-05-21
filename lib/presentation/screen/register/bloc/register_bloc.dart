@@ -122,7 +122,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       try {
         await userRepository.signUp(
-            email: email, password: password, displayName: displayName);
+            email: email, password: password, displayName: displayName, birthday: birthday);
         yield RegisterState.success();
       } catch (_) {
         yield RegisterState.failure();

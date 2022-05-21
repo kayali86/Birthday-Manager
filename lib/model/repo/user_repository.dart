@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserRepository {
   final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _db;
 
-  UserRepository({FirebaseAuth? firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+  UserRepository(
+      {FirebaseAuth? firebaseAuth, FirebaseFirestore? firebaseFirestore})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _db = firebaseFirestore ?? FirebaseFirestore.instance;
 
   Future<void> signInWithCredentials(String email, String password) {
     return _firebaseAuth.signInWithEmailAndPassword(
@@ -14,13 +18,17 @@ class UserRepository {
   Future<void> signUp(
       {required String email,
       required String password,
-      required String displayName}) async {
+      required String displayName,
+      required DateTime birthday}) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     var currentUser = _firebaseAuth.currentUser;
 
-    //update info
-    await currentUser!.updateDisplayName(displayName);
+    if(currentUser != null){
+      final user = <String, dynamic>{"Birthday": birthday, "DisplayName": displayName};
+      _db.collection("users").doc(currentUser.uid).set(user);
+      await currentUser.updateDisplayName(displayName);
+    }
   }
 
   Future signOut() async {
