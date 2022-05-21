@@ -24,4 +24,3 @@ class Authenticated extends AuthenticationState {
     return 'Authenticated{displayName: $displayName}';
   }
 }
-

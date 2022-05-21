@@ -10,7 +10,6 @@ class AuthenticationBloc
   AuthenticationBloc({required this.userRepository})
       : super(Uninitialized());
 
-  @override
   AuthenticationState get initialState => Uninitialized();
 
   @override
@@ -30,7 +29,7 @@ class AuthenticationBloc
       final isSignedIn = await userRepository.isSignedIn();
 
       //for display splash screen
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
 
       if (isSignedIn) {
         final name = await userRepository.getUser();

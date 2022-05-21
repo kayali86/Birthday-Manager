@@ -13,6 +13,8 @@ import '../utils/my_const/COLOR_CONST.dart';
 import 'auth_bloc/bloc.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final config = AppConfig.of(context)!;
@@ -38,9 +40,7 @@ class MyApp extends StatelessWidget {
             return HomeScreen();
           }
 
-          return Container(
-            child: Center(child: Text('Unhandle State $state')),
-          );
+          return Center(child: Text('Unhandled State $state'));
         },
       ),
     );
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
                         ..add(AppStarted()),
                 ),
               ],
-              child: MyApp(),
+              child: const MyApp(),
             ),
           );
         }

@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../utils/my_const/COLOR_CONST.dart';
 
 class WidgetLogoBirthdayManager extends StatelessWidget {
+  const WidgetLogoBirthdayManager({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(

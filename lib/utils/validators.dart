@@ -17,4 +17,12 @@ class Validators {
   static isValidName(String name) {
     return name.isNotEmpty;
   }
+
+  static isValidBirthday(DateTime birthday) {
+    return birthday.isBefore(DateTime.now()) &&
+        birthday.isAfter(DateTime(1920)) &&
+        !(birthday.year == DateTime.now().year &&
+            birthday.month == DateTime.now().month &&
+            birthday.day == DateTime.now().day);
+  }
 }

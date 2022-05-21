@@ -93,11 +93,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     //need refactor
     var isValidEmail = Validators.isValidEmail(email);
     var isValidName = displayName.isNotEmpty;
-    var isValidBirthday = birthday.isBefore(DateTime.now()) &&
-    birthday.isAfter(DateTime(1920)) &&
-        !(birthday.year == DateTime.now().year &&
-        birthday.month == DateTime.now().month &&
-        birthday.day == DateTime.now().day);
+    var isValidBirthday = Validators.isValidBirthday(birthday);
 
     if(!isValidBirthday){
       yield RegisterState.failure("Please select your birthday");

@@ -7,12 +7,11 @@ class SimpleBlocObserver extends BlocObserver {
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     log(event?.toString() ?? '');
-//    LogUtils.blocLogger.i('onEvent $event');
   }
 
   @override
-  void onError(BlocBase bloc, Object error, StackTrace stacktrace) {
-    super.onError(bloc, error, stacktrace);
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    super.onError(bloc, error, stackTrace);
     log('error', error: error);
   }
 

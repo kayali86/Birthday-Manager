@@ -4,13 +4,13 @@ import '../../utils/my_const/COLOR_CONST.dart';
 
 class MySnackBar {
   static void showLoading(BuildContext context) {
-    Scaffold.of(context)
+    ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: const <Widget>[
               Text('Processing ...'),
               CircularProgressIndicator()
             ],
@@ -20,11 +20,11 @@ class MySnackBar {
   }
 
   static void hideLoading(BuildContext context) {
-    Scaffold.of(context)..hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 
   static void failure(BuildContext context, {String msg = "Failure"}) {
-    Scaffold.of(context)
+    ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
@@ -32,7 +32,7 @@ class MySnackBar {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(msg),
-              Icon(Icons.error),
+              const Icon(Icons.error),
             ],
           ),
           backgroundColor: Colors.red,
@@ -41,7 +41,7 @@ class MySnackBar {
   }
 
   static void success(BuildContext context, String msg) {
-    Scaffold.of(context)
+    ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(

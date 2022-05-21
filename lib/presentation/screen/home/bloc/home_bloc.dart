@@ -19,7 +19,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     final debounceStream = events.where((event) {
       return (event is LogOut || event is LoadData);
-    }).debounceTime(Duration(milliseconds: 300));
+    }).debounceTime(const Duration(milliseconds: 300));
 
     return super.transformEvents(
         nonDebounceStream.mergeWith([debounceStream]), transitionFn);
