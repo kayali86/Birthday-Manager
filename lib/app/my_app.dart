@@ -9,6 +9,7 @@ import '../model/repo/user_repository.dart';
 import '../presentation/router.dart';
 import '../presentation/screen/home/sc_home.dart';
 import '../presentation/screen/login/sc_login.dart';
+import '../presentation/screen/splash/sc_splash.dart';
 import '../utils/my_const/COLOR_CONST.dart';
 import 'auth_bloc/bloc.dart';
 
@@ -23,12 +24,16 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: COLOR_CONST.PRIMARY_COLOR,
         hoverColor: COLOR_CONST.GREEN,
-        fontFamily: 'Poppins', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: COLOR_CONST.PRIMARY_COLOR),
+        fontFamily: 'Poppins',
+        colorScheme: ColorScheme.fromSwatch()
+            .copyWith(secondary: COLOR_CONST.PRIMARY_COLOR),
       ),
       onGenerateRoute: AppRouter.generateRoute,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if (state is Unauthenticated) {
+          if (state is Uninitialized) {
+            return SplashScreen();
+          } else if (state is Unauthenticated) {
             return LoginScreen();
           } else if (state is Authenticated) {
             return HomeScreen();

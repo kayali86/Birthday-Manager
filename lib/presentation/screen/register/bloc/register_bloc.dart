@@ -99,6 +99,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         birthday.month == DateTime.now().month &&
         birthday.day == DateTime.now().day);
 
+    if(!isValidBirthday){
+      yield RegisterState.failure("Please select your birthday");
+      return;
+    }
+
     var isValidPassword = Validators.isValidPassword(password);
     var isValidConfirmPassword = Validators.isValidPassword(confirmPassword);
     var isMatched = true;

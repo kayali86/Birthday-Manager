@@ -8,10 +8,10 @@ class AuthenticationBloc
   UserRepository userRepository;
 
   AuthenticationBloc({required this.userRepository})
-      : super(Unauthenticated());
+      : super(Uninitialized());
 
   @override
-  AuthenticationState get initialState => Unauthenticated();
+  AuthenticationState get initialState => Uninitialized();
 
   @override
   Stream<AuthenticationState> mapEventToState(
