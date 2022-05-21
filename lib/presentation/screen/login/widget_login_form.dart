@@ -117,7 +117,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
     return SizedBox(
       width: double.infinity,
       height: 50,
-      child: FlatButton(
+      child: TextButton(
         onPressed: () {
           if (isRegisterButtonEnabled()) {
             _loginBloc.add(LoginSubmitEmailPasswordEvent(
@@ -126,12 +126,9 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
             ));
           }
         },
-        color: isRegisterButtonEnabled()
+        style: _getFlatButtonStyle(isRegisterButtonEnabled()
             ? ColorConst.accentColor
-            : ColorConst.lightPrimaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7.0),
-        ),
+            : ColorConst.lightPrimaryColor),
         child: Text(
           'Login'.toUpperCase(),
           style: FontConst.semiBoldWhite_18,
@@ -178,6 +175,16 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
         ),
       ),
     );
+  }
+
+  ButtonStyle _getFlatButtonStyle(Color? backgroundColor) {
+    return TextButton.styleFrom(
+        minimumSize: const Size(double.infinity, 50),
+        backgroundColor: backgroundColor,
+        padding: const EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.0),
+        ));
   }
 
   _buildTextFieldUsername() {

@@ -176,14 +176,11 @@ class _RegisterFormState extends State<RegisterForm> {
                   SizedBox(
                     width: 50,
                     height: 50,
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {
                         _selectDate(context);
                       },
-                      color: ColorConst.darkPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7.0),
-                      ),
+                      style: _getFlatButtonStyle(ColorConst.darkPrimaryColor),
                       child: Text(
                         'Select birthday'.toUpperCase(),
                         style: FontConst.semiBoldWhite_18,
@@ -194,14 +191,11 @@ class _RegisterFormState extends State<RegisterForm> {
                   SizedBox(
                     width: double.infinity,
                     height: 50,
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {
                         _onFormSubmitted();
                       },
-                      color: ColorConst.accentColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7.0),
-                      ),
+                      style: _getFlatButtonStyle(ColorConst.accentColor),
                       child: Text(
                         'Submit'.toUpperCase(),
                         style: FontConst.semiBoldWhite_18,
@@ -215,6 +209,16 @@ class _RegisterFormState extends State<RegisterForm> {
         },
       ),
     );
+  }
+
+  ButtonStyle _getFlatButtonStyle(Color? backgroundColor) {
+    return TextButton.styleFrom(
+        minimumSize: const Size(double.infinity, 50),
+        backgroundColor: backgroundColor,
+        padding: const EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.0),
+        ));
   }
 
   void _onEmailChanged() {
